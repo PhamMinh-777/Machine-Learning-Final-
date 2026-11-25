@@ -112,11 +112,12 @@ def validate_ohlcv_schema(df: pd.DataFrame) -> bool:
         raise ValueError(f"Thiếu các cột bắt buộc: {missing}")
 
     if "Date" in df.columns:
-        if not pd.api.types.is_datetime64_any_dtype(df["Date"]):
-            try:
-                pd.to_datetime(df["Date"])
-            except Exception as e:
-                raise ValueError(f"Cột 'Date' không đúng định dạng datetime: {e}")
+        try:
+            dates = pd.to_datetime(df["Date"], errors="raise")
+        except Exception as e:
+            raise ValueError(f"Cột 'Date' không đúng định dạng datetime: {e}") from e
+        if dates.isna().any():
+            raise ValueError("Cột 'Date' chứa giá trị rỗng hoặc không hợp lệ!")
     elif not isinstance(df.index, pd.DatetimeIndex):
         raise ValueError("Dữ liệu cần có cột 'Date' hoặc DatetimeIndex!")
 
