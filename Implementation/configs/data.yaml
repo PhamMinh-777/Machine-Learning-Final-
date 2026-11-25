@@ -1,0 +1,81 @@
+
+data:
+  source: yahoo_finance
+  market: vietnam
+
+  start_date: "2016-01-01"
+  end_date: "2026-01-01"
+
+  interval: "1d"
+  auto_adjust: false
+
+download:
+  timeout: 30
+  delay: 0.5
+  progress: false
+  threads: false
+
+paths:
+  raw_data: "data/raw"
+  processed_data: "data/processed"
+  metadata: "data/metadata"
+
+markets:
+  vietnam:
+    technology:
+      - FPT.VN
+      - CMG.VN
+
+    banking:
+      - VCB.VN
+      - BID.VN
+      - CTG.VN
+      - MBB.VN
+      - TCB.VN
+      - ACB.VN
+      - VPB.VN
+      - STB.VN
+
+    securities:
+      - SSI.VN
+      - VND.VN
+      - HCM.VN
+      - VCI.VN
+
+    steel:
+      - HPG.VN
+      - HSG.VN
+      - NKG.VN
+
+    retail:
+      - MWG.VN
+      - FRT.VN
+      - PNJ.VN
+
+    consumer_goods:
+      - VNM.VN
+      - MSN.VN
+      - SAB.VN
+
+    real_estate:
+      - VIC.VN
+      - VHM.VN
+      - NVL.VN
+
+    energy:
+      - GAS.VN
+      - PLX.VN
+      - POW.VN
+      - PVD.VN
+
+selection:
+  mode: all
+
+  sectors:
+    - technology
+    - banking
+
+  tickers:
+    - FPT.VN
+    - HPG.VN
+    - VCB.VN

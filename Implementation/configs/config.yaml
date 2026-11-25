@@ -1,0 +1,94 @@
+# ==============================================================================
+# File: configs/config.yaml
+# Nhiệm vụ: Quản lý thông số toàn bộ dự án
+# ==============================================================================
+
+# Thông số chung & Môi trường
+project:
+  name: "Final-ML-Stock-Prediction"
+  seed: 42
+  device: "auto"  # auto, cuda, cpu, mps
+
+# Cấu hình dữ liệu
+data:
+  ticker: "VNINDEX"           # Mã cổ phiếu hoặc chỉ số cần dự đoán
+  raw_path: "data/raw/"       # Thư mục chứa dữ liệu thô
+  processed_path: "data/processed/" # Thư mục chứa dữ liệu đã tiền xử lý
+  start_date: "2018-01-01"
+  end_date: "2024-12-31"
+  train_ratio: 0.70
+  val_ratio: 0.15
+  test_ratio: 0.15
+
+# Cấu hình trích xuất đặc trưng & Sliding Window
+features:
+  technical_indicators:
+    sma_windows: [10, 20, 50]
+    ema_windows: [12, 26]
+    rsi_period: 14
+    macd_params:
+      fast: 12
+      slow: 26
+      signal: 9
+    bb_period: 20
+    bb_std: 2
+    atr_period: 14
+  window_size: 30            # Số bước thời gian quá khứ (Lookback window - T)
+  forecast_horizon: 1        # Dự đoán t + 1 phiên tới
+  prediction_type: "classification" # classification (Tăng/Giảm) hoặc regression
+
+# Cấu hình huấn luyện mô hình Deep Learning
+training:
+  batch_size: 64
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  epochs: 100
+  patience: 15               # Early stopping patience
+  optimizer: "adamw"         # adam, adamw, sgd
+  loss_function: "bce_with_logits" # hoặc cross_entropy
+
+# Siêu tham số cho từng kiến trúc mô hình
+models:
+  baseline:
+    strategy: "majority"     # majority hoặc persistence
+  traditional:
+    logistic_regression:
+      max_iter: 1000
+    random_forest:
+      n_estimators: 100
+      max_depth: 10
+    xgboost:
+      n_estimators: 100
+      learning_rate: 0.05
+      max_depth: 5
+  cnn:
+    filters: [32, 64]
+    kernel_size: 3
+    dropout: 0.2
+  lstm:
+    hidden_dim: 64
+    num_layers: 2
+    dropout: 0.2
+  cnn_lstm:
+    cnn_filters: 32
+    kernel_size: 3
+    lstm_hidden_dim: 64
+    num_layers: 1
+    dropout: 0.2
+  cnn_lstm_attention:
+    cnn_filters: 32
+    kernel_size: 3
+    lstm_hidden_dim: 64
+    num_layers: 1
+    attention_dim: 32
+    dropout: 0.2
+
+# Cấu hình đường dẫn lưu trữ đầu ra
+output:
+  artifacts:
+    models: "artifacts/models/"
+    scalers: "artifacts/scalers/"
+  results:
+    figures: "results/figures/"
+    predictions: "results/predictions/"
+    metrics: "results/metrics/"

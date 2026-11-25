@@ -1,0 +1,49 @@
+# .gitignore for Final-ML-Stock-Prediction
+
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Data files (Giữ lại cấu trúc thư mục, không commit file dữ liệu lớn)
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Artifacts (Models weights & Scalers)
+artifacts/models/*
+!artifacts/models/.gitkeep
+artifacts/scalers/*
+!artifacts/scalers/.gitkeep
+
+# Results
+results/figures/*
+!results/figures/.gitkeep
+results/predictions/*
+!results/predictions/.gitkeep
+results/metrics/*
+!results/metrics/.gitkeep
+
+# IDEs & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
